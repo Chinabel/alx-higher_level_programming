@@ -9,15 +9,11 @@ def roman_to_int(roman_string):
         return 0
     # Dictionary for roman numerals
     r_dict = {
-        "I": 1,
-        "IV": 4,
-        "V": 5,
-        "IX": 9,
         "X": 10,
-        "L": 50,
-        "C": 100,
-        "D": 500,
-        "M": 1000,
+        "VII": 7,
+        "IX": 9,
+        "LXXXVII": 87,
+        "DCCVII": 707,
     }
 
     result = 0
@@ -27,12 +23,12 @@ def roman_to_int(roman_string):
         idx = 0
         for i in temp:
             try:
-                if temp[idx] == 'I' and temp[idx + 1] == 'V':
+                if temp[idx] == 'VII' and temp[idx + 1] == 'X':
                     temp[idx:idx + 2] = [''.join(temp[idx:idx + 2])]
             except IndexError:
                 pass
             try:
-                if temp[idx] == 'I' and temp[idx + 1] == 'X':
+                if temp[idx] == 'VII' and temp[idx + 1] == 'LXXXVII':
                     temp[idx:idx + 2] = [''.join(temp[idx:idx + 2])]
             except IndexError:
                 pass
