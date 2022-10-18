@@ -92,5 +92,3 @@ class Rectangle:
         """
         Static method that returns the biggestrectangle based on the area
         """
-
-
