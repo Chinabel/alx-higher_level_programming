@@ -1,61 +1,148 @@
-#!/usr/bin/python3
-"""Unittests for max_integer([..])."""
+The ``lazy_matrix_mul`` module
+===============================================================================
 
-import unittest
-max_integer = __import__('6-max_integer').max_integer
+Using ``lazy_matrix_mul``
+-------------------------------------------------------------------------------
 
 
-class TestMaxInteger(unittest.TestCase):
-    """Define unittests for max_integer([..])."""
+Import matrix_mul from 100-matrix_mul
 
-    def test_ordered_list(self):
-        """Test an ordered list of integers."""
-        ordered = [1, 2, 3, 4]
-        self.assertEqual(max_integer(ordered), 4)
+    >>> matrix_mul = __import__('101-lazy_matrix_mul').lazy_matrix_mul
 
-    def test_unordered_list(self):
-        """Test an unordered list of integers."""
-        unordered = [1, 2, 4, 3]
-        self.assertEqual(max_integer(unordered), 4)
+It should raise exception if 'm_a' is not lists
 
-    def test_max_at_begginning(self):
-        """Test a list with a beginning max value."""
-        max_at_beginning = [4, 3, 2, 1]
-        self.assertEqual(max_integer(max_at_beginning), 4)
+    >>> m_a = "matrix_a"
+    >>> m_b = [[1, 2, 3], [4, 5, 6]]
+    >>> matrix_mul(m_a, m_b)
+    Traceback (most recent call last):
+        ...
+    TypeError: m_a must be a list
 
-    def test_empty_list(self):
-        """Test an empty list."""
-        empty = []
-        self.assertEqual(max_integer(empty), None)
+It should raise exception if 'm_b' is not lists
 
-    def test_one_element_list(self):
-        """Test a list with a single element."""
-        one_element = [7]
-        self.assertEqual(max_integer(one_element), 7)
+    >>> m_b = "matrix_b"
+    >>> m_a = [[1, 2, 3], [4, 5, 6]]
+    >>> matrix_mul(m_a, m_b)
+    Traceback (most recent call last):
+        ...
+    TypeError: m_b must be a list
 
-    def test_floats(self):
-        """Test a list of floats."""
-        floats = [1.53, 6.33, -9.123, 15.2, 6.0]
-        self.assertEqual(max_integer(floats), 15.2)
+It should raise exception if 'm_a' and 'm_b' both is not lists
 
-    def test_ints_and_floats(self):
-        """Test a list of ints and floats."""
-        ints_and_floats = [1.53, 15.5, -9, 15, 6]
-        self.assertEqual(max_integer(ints_and_floats), 15.5)
+    >>> m_a = "matrix_a"
+    >>> m_b = "matrix_b"
+    >>> matrix_mul(m_a, m_b)
+    Traceback (most recent call last):
+        ...
+    TypeError: m_a must be a list
 
-    def test_string(self):
-        """Test a string."""
-        string = "Ehoneah"
-        self.assertEqual(max_integer(string), 'r')
+It should raise exception if 'm_a' is not list of lists
 
-    def test_list_of_strings(self):
-        """Test a list of strings."""
-        strings = ["Ehoneah", "is", "my", "name"]
-        self.assertEqual(max_integer(strings), "name")
+    >>> m_a = [[1, 3, 4], 1]
+    >>> m_b = [[1, 2, 3], [4, 5, 6]]
+    >>> matrix_mul(m_a, m_b)
+    Traceback (most recent call last):
+        ...
+    TypeError: m_a must be a list of lists
 
-    def test_empty_string(self):
-        """Test an empty string."""
-        self.assertEqual(max_integer(""), None)
+It should raise exception if 'm_b' is not list of lists
 
-if __name__ == '__main__':
-    unittest.main()
+    >>> m_b = [[1, 3, 4], 1]
+    >>> m_a = [[1, 2, 3], [4, 5, 6]]
+    >>> matrix_mul(m_a, m_b)
+    Traceback (most recent call last):
+        ...
+    TypeError: m_b must be a list of lists
+
+It should raise exception if 'm_a' is empty [] list
+
+    >>> m_a = []
+    >>> m_b = [[1, 2, 3], [4, 5, 6]]
+    >>> matrix_mul(m_a, m_b)
+    Traceback (most recent call last):
+        ...
+    ValueError: m_a can't be empty
+
+It should raise exception if 'm_b' is empty [] list
+
+    >>> m_b = []
+    >>> m_a = [[1, 2, 3], [4, 5, 6]]
+    >>> matrix_mul(m_a, m_b)
+    Traceback (most recent call last):
+        ...
+    ValueError: m_b can't be empty
+
+It should raise exception if 'm_a' is empty [[]] list
+
+    >>> m_a = [[]]
+    >>> m_b = [[1, 2, 3], [4, 5, 6]]
+    >>> matrix_mul(m_a, m_b)
+    Traceback (most recent call last):
+        ...
+    ValueError: m_a can't be empty
+
+It should raise exception if 'm_b' is empty [] list
+
+    >>> m_b = [[]]
+    >>> m_a = [[1, 2, 3], [4, 5, 6]]
+    >>> matrix_mul(m_a, m_b)
+    Traceback (most recent call last):
+        ...
+    ValueError: m_b can't be empty
+
+It should raise exception if 'm_a' doesn't contain a list of list of integer
+or floats
+
+    >>> m_a = [[1, 2, 3], [4, "a", 6]]
+    >>> m_b = [[1, 2, 3], [4, 5, 6]]
+    >>> matrix_mul(m_a, m_b)
+    Traceback (most recent call last):
+        ...
+    TypeError: m_a should contain only integers or floats
+
+It should raise exception if 'm_a' doesn't contain a list of list of integer
+or floats and may be a boolean to test isinstance beahavior
+
+    >>> m_a = [[1, 2, 3], [4, True, 6]]
+    >>> m_b = [[1, 2, 3], [4, 5, 6]]
+    >>> matrix_mul(m_a, m_b)
+    Traceback (most recent call last):
+        ...
+    TypeError: m_a should contain only integers or floats
+
+It should raise exception if 'm_b' doesn't contain a list of list of integer
+or floats
+
+    >>> m_b = [[1, 2, 3], [4, "a", 6]]
+    >>> m_a = [[1, 2, 3], [4, 5, 6]]
+    >>> matrix_mul(m_a, m_b)
+    Traceback (most recent call last):
+        ...
+    TypeError: m_b should contain only integers or floats
+
+It should raise exception if 'm_b' doesn't contain a list of list of integer
+or floats and may be a boolean to test isinstance beahavior
+
+    >>> m_b = [[1, 2, 3], [4, True, 6]]
+    >>> m_a = [[1, 2, 3], [4, 5, 6]]
+    >>> matrix_mul(m_a, m_b)
+    Traceback (most recent call last):
+        ...
+    TypeError: m_b should contain only integers or floats
+
+It should raise an exception if 'm_a' and 'm_b' not compatible for mul
+
+    >>> m_a = [[1, 2, 3], [4, 4, 6], [3, 2, 6]]
+    >>> m_b = [[1, 2], [3, 2]]
+    >>> matrix_mul(m_a, m_b)
+    Traceback (most recent call last):
+        ...
+    ValueError: m_a and m_b can't be multiplied
+
+It should return the right answer
+
+    >>> m_a = [[1, 2, 3], [3, 2, 1]]
+    >>> m_b = [[1, 2, 3], [3, 2, 1], [1, 2, 3]]
+    >>> matrix_mul(m_a, m_b)
+    array([[10, 12, 14],
+           [10, 12, 14]])
