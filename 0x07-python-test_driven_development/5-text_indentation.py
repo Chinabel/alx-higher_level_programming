@@ -7,7 +7,8 @@ Parameters: text must be a string otherwhise an error will raised.
 
 
 def text_indentation(text):
-    """Function that prints a text with 2 new lines after the folowwing characters
+    """Function that prints a text with 2 new lines after the folowwing
+    characters
     Characters to split: ":", "?", "."
     Parameters: text must be a string otherwhise an error will raised."""
 
