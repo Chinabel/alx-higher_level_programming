@@ -1,14 +1,21 @@
 #!/usr/bin/python3
-"""function that reads n lines of a text file and prints it to stdout"""
+"""read_lines
+"""
+import os
 
 
-def read_lines(filename = "", nb_lines = 0):
-    """function that reads n lines of a text file and prints it"""
+def read_lines(filename="", nb_lines=0):
+    """Takes in str filename to read, and n lines w/ int nb_lines
+    """
 
-    lines = len(open(filename).readlines())
-    with open(filename, encoding = "utf8") as f:
-        if nb_lines > 0 and nb_lines < lines:
-            for line in range(nb_lines):
-                print(f.readline(), end = "")
-        else:
-            print(f.read(), end = "")
+
+    with open(filename, encoding="utf-8") as readFile:
+        lineNum = 0
+        while True:
+            line = readFile.readline()
+            lineNum += 1
+            print(line, end='')
+            if lineNum >= nb_lines and nb_lines > 0:
+                break
+            if not line:
+                break
