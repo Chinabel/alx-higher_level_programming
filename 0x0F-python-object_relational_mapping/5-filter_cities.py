@@ -24,6 +24,5 @@ if __name__ == '__main__':
             [state_name]
         )
         results = cursor.fetchall()
-        for result in results:
-            print(result)
+        print(','.join(map(lamda x: x[0], results)))
         db_connection.close()
