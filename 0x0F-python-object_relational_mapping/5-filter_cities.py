@@ -6,7 +6,7 @@ import MySQLdb
 
 
 if __name__ == '__main__':
-    if len(sys.argv) >= 4:
+    if len(sys.argv) >= 5:
         db_connection = MySQLdb.connect(
             host='localhost',
             port=3306,
@@ -14,11 +14,14 @@ if __name__ == '__main__':
             passwd=sys.argv[2],
             db=sys.argv[3]
         )
+        state_name = sys.argv[4]
         cursor = db_connection.cursor()
         cursor.execute(
-            'SELECT cities.id, cities.name, states.name FROM cities' +
+            'SELECT cities.name FROM cities' +
             ' INNER JOIN states ON cities.state_id = states.id' +
-            ' ORDER BY cities.id ASC;'
+            ' WHERE CAST(states.name AS BINARY) = %s' +
+            ' ORDER BY cities.id ASC;',
+            [state_name]
         )
         results = cursor.fetchall()
         for result in results:
