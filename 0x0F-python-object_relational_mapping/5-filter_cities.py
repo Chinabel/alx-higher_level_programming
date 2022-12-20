@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''Prints all cities and their state in a database.
+'''Prints all cities of a given state in a database.
 '''
 import sys
 import MySQLdb
@@ -24,5 +24,5 @@ if __name__ == '__main__':
             [state_name]
         )
         results = cursor.fetchall()
-        print(','.join(map(lamda x: x[0], results)))
+        print(', '.join(map(lambda x: x[0], results)))
         db_connection.close()
